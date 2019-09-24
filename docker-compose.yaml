@@ -1,0 +1,19 @@
+version: '3'
+services:
+  react-app:
+    build:
+      context: .  # Take contents from this directory
+      dockerfile: Dockerfile.dev
+    ports: 
+      - "3000:3000"
+    volumes: 
+      - /app/node_modules  # Do not override/overwrite anything on this folder
+      - .:/app  # Map all contents inside present working directory into /app folder
+  tests:
+    build: 
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes: 
+      - /app/node_modules
+      - .:/app
+    command: ["npm", "run", "test"]
